@@ -1,0 +1,51 @@
+<?php
+// Affichage des erreurs pour debug
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+require_once 'config.php';
+
+// Vérifier que l'utilisateur est connecté
+if (!function_exists('isLoggedIn') || !isLoggedIn()) {
+    die("Vous devez être connecté pour poster une réponse. <a href='login.php'>Se connecter</a>");
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $question_id = $_POST['question_id'] ?? null;
+    $contenu = trim($_POST['contenu'] ?? '');
+
+    if (!$question_id) {
+        die("Erreur : question_id manquant.");
+    }
+    if (!$contenu) {
+        die("Erreur : contenu vide.");
+    }
+
+    // Vérifier que $pdo existe
+    if (!isset($pdo)) {
+        die("Erreur : connexion à la base de données non configurée.");
+    }
+
+    try {
+        $date = date('Y-m-d H:i:s');
+        $stmt = $pdo->prepare("
+            INSERT INTO reponse (r_date_ajout, r_contenu, r_fk_question_id, user_id) 
+            VALUES (?, ?, ?, ?)
+        ");
+        $success = $stmt->execute([$date, $contenu, $question_id, getUserId()]);
+
+        if ($success) {
+            // Redirection vers la question
+            header('Location: question.php?id=' . $question_id);
+            exit;
+        } else {
+            die("Erreur : impossible d'insérer la réponse.");
+        }
+    } catch (PDOException $e) {
+        die("Erreur SQL : " . $e->getMessage());
+    }
+
+} else {
+    die("Cette page doit être appelée via le formulaire de réponse (POST).");
+}
+?>

@@ -1,0 +1,99 @@
+
+<?php 
+
+session_start(); //a utiliser pour $_SESSION
+
+include '_conf.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require __DIR__ . '/phpmailer/Exception.php';
+require __DIR__ . '/phpmailer/PHPMailer.php';
+require __DIR__ . '/phpmailer/SMTP.php';
+
+$mail = new PHPMailer(true);
+
+//detecte l'envoie du formulaire ou j'appuie sur le boutton send_con
+if (isset($_POST['send_con']))
+{
+    $lemail = $_POST['login'];
+    echo $lemail;
+
+    $mdp = $_POST['motdepasse'];
+    echo $mdp;
+
+$bdd = mysqli_connect($serveurBDD, $userBDD, $mdpBDD, $nomBDD);
+$requete = "Select * from utilisateur WHERE email= '$lemail'";
+$resultat = mysqli_query($bdd, $requete);
+$trouve = "0";
+
+while($donnees = mysqli_fetch_assoc($resultat)) 
+    {
+    $trouve = 1;
+    $num=$donnees['num'];
+    $nom=$donnees['nom'];
+    $prenom=$donnees['prenom'];
+    $type=$donnees['type'];
+    //champBDD'email'
+    $login=$donnees['email'];
+    $_SESSION['Sid'] = $login;
+    
+}
+
+if($trouve == "0") {
+    echo "EMAIL NON TROUVE";
+} else {
+    echo " Votre email a bien été trouvé !";
+    //$requete1 = "UPDATE `utilisateur` SET `motdepasse` = '$mdphash' WHERE `utilisateur`.`email` = '$lemail';";
+    }  
+}
+
+
+if (isset($_SESSION['Sid']))
+{
+    echo ("Vous êtes connecté en tant que '$type'");
+    if ($type =='1'){
+        //redirige vers la fichier "page eleve"
+        header('Location: page_eleve.php');
+        exit();
+    }
+    else {
+        //redirige vers la ficher "page prof"
+        header('Location: page_prof.php');
+        exit();
+    }
+    
+}
+else
+{
+	echo "La connexion est perdue, veuillez revenir à la <a href='index.html'>page d'index</a> pour vous reconnecter."; 
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <br>
+    <title>Page d'Accueil</title>
+    
+    
+
+</head>
+<body>
+    <form method="post">
+    <label>Page d'Accueil:</label>
+    <hr>
+    <p>Bonjour <?php echo $prenom; ?> !</p>
+    <hr>
+    <button type="submit" name="send_deco">Déconnexion</button>
+    <a href="index.php">Déconnexion</a>
+    <a href="perso.php">Page Personnelle</a>
+    <a href="perso.php">Page Personnelle</a>
+    </form>
+</body>
+</html>
+

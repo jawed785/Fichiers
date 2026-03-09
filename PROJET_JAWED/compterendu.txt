@@ -1,0 +1,90 @@
+<?php
+include '_conf.php';
+session_start();
+
+$bdd = mysqli_connect($serveurBDD, $userBDD, $mdpBDD, $nomBDD);
+if (!$bdd) die("Erreur connexion BDD");
+
+$email_utilisateur = $_SESSION['Sid'] ?? '';
+
+$description = '';
+$message = '';
+
+// Vérifier si une date a été sélectionnée pour pré-remplir le descriptif
+if (isset($_POST['check_date'])) {
+    $date = $_POST['date'];
+    $sql = "SELECT description FROM compte_rendu 
+            WHERE date='$date' AND email_utilisateur='$email_utilisateur'";
+    $res = mysqli_query($bdd, $sql);
+    if ($res && mysqli_num_rows($res) > 0) {
+        $row = mysqli_fetch_assoc($res);
+        $description = $row['description']; // Pré-remplir
+    }
+}
+
+// Enregistrement ou mise à jour du CR
+if (isset($_POST['send_cr'])) {
+    $date = $_POST['date'];
+    $desc = $_POST['description'];
+
+    // Vérifier si CR existe déjà
+    $sql_check = "SELECT num FROM compte_rendu 
+                  WHERE date='$date' AND email_utilisateur='$email_utilisateur'";
+    $res_check = mysqli_query($bdd, $sql_check);
+
+    if ($res_check && mysqli_num_rows($res_check) > 0) {
+        // UPDATE
+        $sql_update = "UPDATE compte_rendu 
+                       SET description='$desc' 
+                       WHERE date='$date' AND email_utilisateur='$email_utilisateur'";
+        mysqli_query($bdd, $sql_update);
+        $message = "✅ Compte rendu mis à jour !";
+    } else {
+        // INSERT
+        $sql_insert = "INSERT INTO compte_rendu (date, description, email_utilisateur)
+                       VALUES ('$date', '$desc', '$email_utilisateur')";
+        mysqli_query($bdd, $sql_insert);
+        $message = "✅ Compte rendu ajouté !";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Compte Rendu Élève</title>
+    <link rel="stylesheet" href="compterendu_eleve.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="logo">🎓 Espace Élève</div>
+        <ul class="nav-links">
+            <li><a href="profil_eleve.php">Profil</a></li>
+            <li><a href="compterendu_eleve.php" class="active">Compte Rendu</a></li>
+            <li><a href="index.php" class="logout">Déconnexion</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="content">
+    <div class="form-container">
+        <h2>Créer ou Modifier un Compte Rendu</h2>
+
+        <?php if ($message) echo "<p class='message'>$message</p>"; ?>
+
+        <form method="POST" action="">
+            <label for="date">Date :</label>
+            <input type="date" id="date" name="date" value="<?php echo $_POST['date'] ?? ''; ?>" required>
+            <button type="submit" name="check_date">↻ Vérifier la date</button>
+
+            <label for="description">Descriptif :</label>
+            <textarea id="description" name="description" placeholder="Décris ton activité..." required><?php echo $description; ?></textarea>
+
+            <button type="submit" name="send_cr">ENREGISTRER</button>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,39 @@
+Q3:
+SELECT personne.*,voiture.marque FROM personne, voiture, posseder WHERE personne.id=posseder.id
+AND posseder.ID_1=voiture.ID;
+
+Q4:
+SELECT personne.*,voiture.marque FROM personne 
+INNER JOIN posseder ON personne.id=posseder.id
+JOIN voiture ON posseder.ID_1=voiture.ID;
+
+Q5:
+SELECT personne.*,voiture.marque FROM personne 
+LEFT JOIN posseder ON personne.id=posseder.id
+LEFT JOIN voiture ON posseder.ID_1=voiture.ID;
+
+Q6:
+SELECT personne.*,voiture.marque, couleur.couleur FROM personne 
+JOIN posseder ON personne.id=posseder.id
+JOIN voiture ON posseder.ID_1=voiture.ID
+JOIN couleur ON posseder.ID_1=couleur.ID_couleur;
+
+Q7:
+Cela fait la même chose, sauf qu'avec un where, il faut absolument utiliser un UNION.
+
+Q8:
+SELECT personne.*,voiture.marque, couleur.couleur FROM personne 
+LEFT JOIN posseder ON personne.id=posseder.id
+LEFT JOIN voiture ON posseder.ID_1=voiture.ID
+LEFT JOIN couleur ON posseder.ID_couleur=couleur.ID_couleur;
+
+Q9:
+SELECT personne.*,voiture.marque FROM personne 
+RIGHT JOIN posseder ON personne.id=posseder.id
+RIGHT JOIN voiture ON posseder.ID_1=voiture.ID;
+
+Q10:
+SELECT voiture.*
+FROM voiture
+LEFT JOIN posseder ON voiture.ID = posseder.ID_1
+WHERE posseder.ID_1 IS NULL;

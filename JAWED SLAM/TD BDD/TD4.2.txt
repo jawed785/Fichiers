@@ -1,0 +1,43 @@
+Q1:
+
+SELECT NOM, TEL
+FROM entreprise
+
+UNION
+
+SELECT NOM, TEL
+FROM tuteur;
+
+
+Q2:
+
+SELECT NOM, TEL, MAIL AS email
+FROM tuteur
+
+UNION
+
+SELECT NOM, TEL, ''
+FROM entreprise;
+
+
+Q3:
+
+SELECT 'Tut' AS Type, NOM, TEL, MAIL AS email
+FROM tuteur
+
+UNION
+
+SELECT 'ENT' AS Type, NOM, TEL, ''
+FROM entreprise;
+
+Q4:
+
+
+Q5:
+
+
+Q6:
+
+
+Q7:
+

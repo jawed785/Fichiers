@@ -1,0 +1,186 @@
+/* ======== STYLE GLOBAL ======== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #6dd5ed, #2193b0);
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ======== NAVBAR ======== */
+header {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s ease;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Bouton Déconnexion */
+.nav-links .logout {
+    background-color: white;
+    color: #2193b0;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links .logout:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.05);
+}
+
+/* ======== CONTENU PRINCIPAL ======== */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 40px;
+    border-radius: 15px;
+    width: 420px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+    margin-top: -5cm;
+}
+
+.form-container h2 {
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+/* ======== INFOS IMPORTANTES ======== */
+.important-info {
+    position: center;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #2193b0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+    z-index: 200; /* Au-dessus de tout */
+    max-width: 250px;
+    text-align: left;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* ======== FORMULAIRE ======== */
+label {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: none;
+    resize: none;
+    outline: none;
+}
+
+input[type="date"] {
+    background-color: #f9f9f9;
+}
+
+textarea {
+    height: 120px;
+    background-color: #f9f9f9;
+}
+
+/* ======== BOUTON ======== */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 25px;
+    background-color: white;
+    color: #2193b0;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.03);
+}
+
+/* ======== MESSAGE ======== */
+.message {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+   
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* ======== RESPONSIVE ======== */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-container {
+        width: 85%;
+        padding: 30px 20px;
+    }
+}

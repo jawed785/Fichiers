@@ -1,0 +1,157 @@
+/* STYLE GLOBAL */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #6dd5ed, #2193b0);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVBAR */
+header {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s ease;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-links .logout {
+    background-color: white;
+    color: #2193b0;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links .logout:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.05);
+}
+
+/* CONTENU DE LA PAGE PROFIL */
+.content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 120px;
+}
+
+.profile-box {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 45px 60px;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    max-width: 600px;
+    width: 90%;
+}
+
+.profile-box h1 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Informations */
+.profile-info p {
+    font-size: 1.2em;
+    margin: 12px 0;
+}
+
+.profile-info strong {
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Bouton */
+.btn {
+    background-color: white;
+    color: #2193b0;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 25px;
+}
+
+.btn:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.05);
+}
+
+.btn.secondary {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+.btn.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .profile-box {
+        padding: 30px 25px;
+    }
+
+    .profile-box h1 {
+        font-size: 1.8em;
+    }
+
+    .profile-info p {
+        font-size: 1.1em;
+    }
+}
